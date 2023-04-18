@@ -1,0 +1,26 @@
+.promo {
+    display: flex;
+    flex-direction: column;
+    gap:102px;
+    max-width: 1280px;
+    min-height: 560px;
+    max-height: 560px;
+    background-color: #F3C1F8;
+}
+
+.promo__title {
+    margin: 0;
+    padding: 50px 0 0 70px;
+    width: 626px;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 52px;
+    letter-spacing: -0.04em;
+}
+
+.promo__logo {
+    max-width: 722px;
+    align-self: end;
+    margin-right: 70px;
+    object-fit: cover;
+}

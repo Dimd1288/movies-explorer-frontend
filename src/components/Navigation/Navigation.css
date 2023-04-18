@@ -1,0 +1,40 @@
+.navigation {
+    display: flex;
+    gap: 50px;
+    padding: 0;
+}
+
+.navigation__menu {
+    display: flex;
+    list-style: none;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.navigation__link {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: right;
+    color: #000000;
+}
+
+.navigation__link:hover {
+    opacity: .7;
+}
+
+.navigation__link_active {
+    font-weight: 500;
+}
+
+.navigation__icon {
+    border-radius: 6px;
+}
