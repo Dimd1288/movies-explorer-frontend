@@ -1,7 +1,7 @@
 import './AboutProject.css';
 import '../Main.css';
 
-function AboutProject(props) {
+function AboutProject() {
     return (
         <section className='about'>
             <h2 className='main__subtitle'>О проекте</h2>

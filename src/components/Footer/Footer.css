@@ -1,0 +1,36 @@
+.footer {
+    width: calc(100% - 140px);
+    margin: 0 auto;
+}
+
+.footer__title {
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #A0A0A0;
+    margin: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.footer__copyright-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.footer__copyright {
+    margin: 0;
+}
+
+.footer__items {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
