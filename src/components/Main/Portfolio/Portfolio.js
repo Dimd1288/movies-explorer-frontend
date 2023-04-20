@@ -9,17 +9,17 @@ function Portfolio() {
                 <ul className='portfolio__list'>
                     <li className='portfolio__item'>Статичный сайт
                         <a className='portfolio__link' href='#'>
-                            <img src={icon} />
+                            {/* <img src={icon} /> */}
                         </a>
                     </li>
                     <li className='portfolio__item'>Адаптивный сайт
                         <a className='portfolio__link' href='#'>
-                            <img src={icon} />
+                            {/* <img src={icon} /> */}
                         </a>
                     </li>
                     <li className='portfolio__item'>Одностраничное приложение
                         <a className='portfolio__link' href='#'>
-                            <img src={icon} />
+                            {/* <img src={icon} /> */}
                         </a>
                     </li>
                 </ul>

@@ -33,4 +33,40 @@
     list-style: none;
     display: flex;
     gap: 20px;
+    padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        width: calc(100% - 100px);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .footer {
+        width: calc(100% - 36px);
+    }
+
+    .footer__title {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .footer__copyright-container {
+        flex-direction: column-reverse;
+        gap: 30px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 15px;
+        padding-top: 30px;
+    }
+
+    .footer__items {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .footer__copyright {
+        color: #A0A0A0;
+    }
 }

@@ -1,16 +1,17 @@
 .about {
     width: calc(100% - 140px);
     margin: 0 auto;
+    padding-top: 110px;
 }
 
 .about__diploma {
     display: flex;
     gap: 40px;
-    margin: 0 0 110px 0;
+    margin: 70px 0 110px 0;
 }
 
 .about__article {
-    width: 550px;
+    max-width: 550px;
 }
 
 .about__subtitle {
@@ -29,7 +30,7 @@
 
 .about__weeks-container {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 4fr;
     margin: 0 0 110px 0;
 }
 
@@ -55,4 +56,72 @@
     font-size: 14px;
     line-height: 17px;
     color: #A0A0A0;
+}
+
+@media screen and (max-width: 855px) {
+    .about {
+        width: calc(100% - 100px);
+        padding-top: 90px;
+    }
+
+    .about__diploma {
+        margin-bottom: 93px;
+        gap: 30px;
+    }
+
+    .about__subtitle {
+        margin-bottom: 22px;
+    }
+
+    .about__weeks-container {
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .about {
+        width: calc(100% - 36px);
+    }
+
+    .about__diploma {
+        flex-direction: column;
+        gap: 56px;
+    }
+
+    .about__subtitle {
+        margin-bottom: 16px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about__weeks-container {
+        grid-template-columns: 1fr 2fr;
+        margin-bottom: 70px;
+    }
+
+    .about__weeks {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about__weeks-caption {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about__description {
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .about {
+        padding-top: 70px;
+    }
+
+    .about__diploma {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
 }

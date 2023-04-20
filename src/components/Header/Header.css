@@ -35,3 +35,23 @@
     color: #FFFFFF;
     border-radius: 3px;
 }
+
+@media screen and (max-width: 855px) {
+    .header {
+        width: calc(100% - 60px);
+        padding: 28px 30px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .header {
+        width: calc(100% - 28px);
+        padding: 28px 14px;
+    }
+    .header__menu {
+        gap: 14px;
+    }
+    .header__link {
+        font-size: 10px;
+    }
+}
