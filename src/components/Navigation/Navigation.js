@@ -2,7 +2,7 @@ import './Navigation.css';
 import { Link, useLocation } from 'react-router-dom';
 import profileLogo from '../../images/profile-icon.svg';
 
-function Navigation(props) {
+function Navigation() {
     const location = useLocation();
     const moviesRoute = '/movies';
     const savedMoviesRoute = '/saved-movies';

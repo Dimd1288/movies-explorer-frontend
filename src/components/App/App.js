@@ -11,7 +11,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   
   return (
     <div className="app">
@@ -22,7 +22,7 @@ function App() {
           <Route path="/signin" element={<Login />} />
           <Route path="/movies" element={<><Header loggedIn={loggedIn} /><Movies /><Footer /></>} />
           <Route path="/saved-movies" element={<><Header loggedIn={loggedIn}/><SavedMovies /><Footer /></>} />
-          <Route path="/profile" element={<><Header loggedIn={loggedIn}/><Profile /><Footer /></>} />
+          <Route path="/profile" element={<><Header loggedIn={loggedIn}/><Profile /></>} />
           <Route path="/" element={<><Header mainPage="true" loggedIn={loggedIn}/><Main /><Footer /></>} />
         </Routes>
 

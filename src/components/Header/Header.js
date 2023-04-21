@@ -7,8 +7,8 @@ function Header(props) {
 
     return (
         <header className={`header ${props.mainPage ? 'header_page_main' : ''}`}>
-            <Link to="/"><img src={headerLogo} alt="Логотип страницы" className='header__link'/></Link>
-            {props.loggedIn && <Navigation location={props.location}/>}
+            <Link to="/"><img src={headerLogo} alt="Логотип страницы" className='header__link' /></Link>
+            {props.loggedIn && <Navigation />}
             {
                 !props.loggedIn &&
                 <div className='header__menu'>
