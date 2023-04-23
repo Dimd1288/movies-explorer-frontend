@@ -1,7 +1,27 @@
 .navigation {
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigation__pie {
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    transform: translateX(120%);
+    border: none;
+    background: url('../../images/pie-icon.svg') no-repeat 50% 50%;
+    cursor: pointer;
+    display: none;
+    padding: 9px 8px;
+    transition: transform .5s;
+}
+
+.navigation__wrapper {
     display: flex;
     gap: 50px;
     padding: 0;
+    transition: transform .5s;
 }
 
 .navigation__menu {
@@ -37,4 +57,16 @@
 
 .navigation__icon {
     border-radius: 6px;
+}
+
+@media screen and (max-width: 768px) {
+    
+    .navigation__wrapper {
+        transform: translateX(120%);
+    }
+
+    .navigation__pie {
+        display: block;
+        transform: translateX(0);
+    }
 }

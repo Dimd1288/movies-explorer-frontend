@@ -1,0 +1,104 @@
+.sidebar {
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.sidebar__window {
+    display: flex;
+    transform: translateX(120%);
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    width: 520px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.sidebar__close {
+    background: url('../../images/close-sidebar-icon.svg') no-repeat 50% 50%;
+    border: none;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 29.16px;
+    right: 29.16px;
+    cursor: pointer;
+}
+
+.sidebar__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 159px;
+    position: relative;
+    height: 100%;
+}
+
+.sidebar__menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    gap: 28px;
+    text-align: center;
+    margin: 0;
+}
+
+.sidebar__link {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+}
+
+.sidebar__link_account {
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 99px;
+}
+
+.sidebar__link_active {
+    border-bottom: 2px solid #000000;
+    padding-bottom: 4px;
+}
+
+.sidebar__link:hover {
+    border-bottom: 2px solid #000000;
+    padding-bottom: 4px;
+}
+
+.sidebar__link_account:hover {
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar_opened {
+        visibility: visible;
+    }
+
+    .sidebar__window_opened {
+        transform: translateX(0);
+        transition: transform .5s ease;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .sidebar__window {
+        width: 100%;
+    }
+}

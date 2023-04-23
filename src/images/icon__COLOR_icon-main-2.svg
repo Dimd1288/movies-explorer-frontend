@@ -1,13 +1,13 @@
 <svg width="28" height="3" viewBox="0 0 28 3" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="28" height="3" fill="#E5E5E5"/>
 <g clip-path="url(#clip0_891_3857)">
-<rect width="768" height="1898" transform="translate(-702 -26)" fill="white"/>
-<rect x="-702" y="-26" width="768" height="74" fill="white"/>
+<rect width="768" height="1898" transform="translate(-702 -46)" fill="white"/>
+<rect x="-702" y="-46" width="768" height="74" fill="white"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M28 3L0 3L0 0L28 0V3Z" fill="black"/>
 </g>
 <defs>
 <clipPath id="clip0_891_3857">
-<rect width="768" height="1898" fill="white" transform="translate(-702 -26)"/>
+<rect width="768" height="1898" fill="white" transform="translate(-702 -46)"/>
 </clipPath>
 </defs>
 </svg>

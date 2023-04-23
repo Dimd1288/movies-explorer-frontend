@@ -1,6 +1,10 @@
 .footer {
     width: calc(100% - 140px);
     margin: 0 auto;
+    padding-top: 79px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
 }
 
 .footer__title {
