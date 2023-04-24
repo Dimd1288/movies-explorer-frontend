@@ -24,7 +24,7 @@ function Sidebar(props) {
                         <li><Link to={moviesRoute} className={`sidebar__link ${location.pathname === moviesRoute ? 'sidebar__link_active' : ''}`}>Фильмы</Link></li>
                         <li><Link to={savedMoviesRoute} className={`sidebar__link ${location.pathname === savedMoviesRoute ? 'sidebar__link_active' : ''}`}>Сохраненные фильмы</Link></li>
                     </ul>
-                    <Link to='/profile' className='sidebar__link sidebar__link_account'>Аккаунт<img src={profileLogo} alt="Иконка аккаунта" className='sidebar__icon' /></Link>
+                    <Link onClick={props.onEditClose} to='/profile' className='sidebar__link sidebar__link_account'>Аккаунт<img src={profileLogo} alt="Иконка аккаунта" className='sidebar__icon' /></Link>
                 </nav>
             </aside>
         </section>

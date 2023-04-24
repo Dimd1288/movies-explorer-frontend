@@ -101,4 +101,12 @@
     .sidebar__window {
         width: 100%;
     }
+
+    .sidebar__navigation {
+        padding-top: 144px;
+    }
+
+    .sidebar__link_account {
+        bottom: 48px;
+    }
 }

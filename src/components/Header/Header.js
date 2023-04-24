@@ -10,7 +10,7 @@ function Header(props) {
     return (
         <header className={`header ${location.pathname === '/' ? 'header_page_main' : ''}`}>
             <Link to="/"><img src={headerLogo} alt="Логотип страницы" className='header__link' /></Link>
-            {props.loggedIn && <Navigation pieClick = {props.onPieClick}/>}
+            {props.loggedIn && <Navigation pieClick = {props.onPieClick} escape={props.escape}/>}
             {
                 !props.loggedIn &&
                 <div className='header__menu'>
