@@ -6,7 +6,7 @@ function Form(props) {
 
     return (
         <div className='auth-page'>
-            <img src={logo} className='auth-page__logo' />
+            <Link to='/'><img src={logo} className='auth-page__logo' /></Link>
             <h1 className='auth-page__title'>{props.title}</h1>
 
             <form className='auth-page__form'>

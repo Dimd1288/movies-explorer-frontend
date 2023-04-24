@@ -7,7 +7,9 @@ function Register(props) {
             <Form title="Добро пожаловать!"
                 button="Зарегистрироваться"
                 caption="Уже зарегистрированы? "
-                linkText="Войти">
+                linkText="Войти"
+                link='/signin'
+            >
                 <label className='register__label'>Имя</label>
                 <input type='text' className='register__input' />
                 <label className='register__label'>E-mail</label>

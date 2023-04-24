@@ -7,12 +7,12 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const location = useLocation();
   const headerVisible = location.pathname === '/' || location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile';
