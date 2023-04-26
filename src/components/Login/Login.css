@@ -15,6 +15,17 @@
     border-radius: 8px;
 }
 
+.login__input_error {
+    color: #FF4062;
+}
+
 .login__input:focus {
     outline: none;
+}
+
+.login__error {
+    transform: translateY(-10px);
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF4062;
 }

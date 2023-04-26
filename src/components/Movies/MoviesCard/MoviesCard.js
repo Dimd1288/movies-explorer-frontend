@@ -14,7 +14,7 @@ function MoviesCard(props) {
                 <button onClick={handleSave} className={`movie-card__save ${saved ? 'movie-card__save_active' : ''}`}></button>
                 <p className="movie-card__duration">1ч 47м</p> 
             </div>
-            <img src={props.cardImage} className="movie-card__image" />
+            <img src={props.cardImage} alt="Карточка фильма" className="movie-card__image" />
         </article>
     )
 }

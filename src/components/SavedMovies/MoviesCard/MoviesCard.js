@@ -9,7 +9,7 @@ function MoviesCard(props) {
                 <button className="movie-card__delete"></button>
                 <p className="movie-card__duration">1ч 47м</p> 
             </div>
-            <img src={props.cardImage} className="movie-card__image" />
+            <img src={props.cardImage} alt="Карточка фильма" className="movie-card__image" />
         </article>
     )
 }

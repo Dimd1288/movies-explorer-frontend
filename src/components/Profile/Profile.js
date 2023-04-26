@@ -1,8 +1,7 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Profile(props) {
     const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useValidation();
