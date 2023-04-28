@@ -1,0 +1,127 @@
+.about {
+    width: calc(100% - 140px);
+    margin: 0 auto;
+    padding-top: 110px;
+}
+
+.about__diploma {
+    display: flex;
+    gap: 40px;
+    margin: 70px 0 110px 0;
+}
+
+.about__article {
+    max-width: 550px;
+}
+
+.about__subtitle {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0 0 26px 0;
+}
+
+.about__description {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.about__weeks-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 0 0 110px 0;
+}
+
+.about__weeks {
+    display: inline;
+    text-align: center;
+    vertical-align: bottom;
+    background-color: #F2F2F2;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 9px 0;
+    margin: 0 0 14px 0;
+}
+
+.about__weeks_color_black {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.about__weeks-caption {
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+}
+
+@media screen and (max-width: 855px) {
+    .about {
+        width: calc(100% - 100px);
+        padding-top: 90px;
+    }
+
+    .about__diploma {
+        margin-bottom: 93px;
+        gap: 30px;
+    }
+
+    .about__subtitle {
+        margin-bottom: 22px;
+    }
+
+    .about__weeks-container {
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .about {
+        width: calc(100% - 36px);
+    }
+
+    .about__diploma {
+        flex-direction: column;
+        gap: 56px;
+    }
+
+    .about__subtitle {
+        margin-bottom: 16px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about__weeks-container {
+        grid-template-columns: 1fr 2fr;
+        margin-bottom: 70px;
+    }
+
+    .about__weeks {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about__weeks-caption {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about__description {
+        font-size: 11px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .about {
+        padding-top: 70px;
+    }
+
+    .about__diploma {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+}

@@ -1,0 +1,32 @@
+.popup {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 40px;
+    width: 300px;
+    border: none;
+    background-color: rgba(0, 0, 0, .7);
+    border-radius: 10px;
+    padding: 0;
+    height: 55px;
+}
+
+.popup__close {
+    height: 15px;
+    width: 15px;
+    margin: 3px;
+    align-self: flex-end;
+    background: transparent url('../../images/close-popup-icon.svg') 50% 50% no-repeat;
+    border: none;
+    position: absolute;
+    cursor: pointer;
+}
+
+.popup__message {
+    color: #2BE080;
+    align-self: center;
+}
+
+.popup__message_error {
+    color: #FFFFFF;
+}

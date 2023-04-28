@@ -1,0 +1,17 @@
+@import url('../../vendor/fonts.css');
+
+.app {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #000000;
+}
+
+.app-page {
+  max-width: 1280px;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
