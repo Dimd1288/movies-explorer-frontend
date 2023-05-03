@@ -5,37 +5,47 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SearchForm from './SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import { useFilter } from '../../hooks/useFilter';
-import { useWindowSize } from '../../hooks/useWindowSize';
+import { NAME_RU } from '../../utils/constants';
 
 function Movies(props) {
     const [loading, setLoader] = useState(false);
-    const { handleFilter, handleChange, filteredArray, value, message, setMessage, handleSwitch } = useFilter();
-    const { sizeMode, handleSize } = useWindowSize();
+    const { handleFilter, handleChange, value, setValue, message, setMessage, checked, setChecked, handleCheck } = useFilter();
     const [rows, setRows] = useState({});
     const [moreMovies, setMoreMovies] = useState(false);
+    const localMovies = JSON.parse(localStorage.getItem("movies")) || [];
 
     useEffect(() => {
-        handleSize();
-        setRows(sizeMode.row);
+        setRows(props.size.row);
+        setChecked(JSON.parse(localStorage.getItem(`${NAME_RU}-checked`)) || false);
+        setValue(localStorage.getItem(NAME_RU))
         handleMoreButtonCheck();
-    }, [props.loaded])
+    }, [props.loaded, window.innerWidth]);
+
+    useEffect(() => {
+        handleMoviesCheck();
+    }, [])
 
     function handleSwitchPreloader(isLoading) {
         setLoader(isLoading);
     }
 
+    function handleMoviesCheck() {
+        if (localMovies.length !== 0) {
+            props.onLoaded(true);
+            setMessage("")
+        }
+    }
+
     function handleMoreButtonCheck() {
-        if ((filteredArray.length <= (rows + sizeMode.add))) {
-            console.log(filteredArray.length);
-            console.log(rows)
+        if ((localMovies.slice(0, props.size.max).length <= (rows + props.size.add)) || localMovies.length === 0) {
             setMoreMovies(false);
-        } else if (filteredArray.length > sizeMode.row) {
+        } else if (localMovies.length > props.size.row) {
             setMoreMovies(true);
         }
     }
 
     function handleMoreButtonClick() {
-        setRows(rows + sizeMode.add);
+        setRows(rows + props.size.add);
         handleMoreButtonCheck();
     }
 
@@ -44,18 +54,22 @@ function Movies(props) {
             <SearchForm
                 onLoading={props.onLoading}
                 onFilter={handleFilter}
+                name={NAME_RU}
                 onInputChange={handleChange}
                 onLoaded={props.onLoaded}
+                onMoreMovies={setMoreMovies}
                 value={value}
-                onSwitch={handleSwitch}
+                checked={checked}
+                onCheck={setChecked}
+                handleCheck={handleCheck}
                 onSetMessage={setMessage}
-                movies={filteredArray}
+                movies={localMovies}
                 onSetMovies={props.onSetMovies}
                 onStartLoader={handleSwitchPreloader} />
             {loading && <Preloader />}
             {!loading && <span className='movies__message'>{message}</span>}
-            {props.loaded && <MoviesCardList movies={filteredArray.slice(0, rows)} />}
-            {moreMovies && <button onClick={handleMoreButtonClick} className='movies__more'>Ещё</button>}
+            {props.loaded && <MoviesCardList movies={localMovies.slice(0, rows)} />}
+            {(moreMovies && !loading) && <button onClick={handleMoreButtonClick} className='movies__more'>Ещё</button>}
         </main>
     )
 }

@@ -2,27 +2,29 @@ import { useState } from "react";
 
 export function useFilter() {
     const [value, setValue] = useState('');
-    const [filteredArray, setFilteredArray] = useState([]);
-    const [message, setMessage] = useState("Поиск фильмов по названию")
+    const [message, setMessage] = useState("Поиск фильмов по названию");
+    const [checked, setChecked] = useState(false);
 
-    const handleChange = (e) => {
-        setValue(e.target.value)
+    function handleCheck() {
+        setChecked(!checked);
     }
 
-    const handleFilter = (initialArray, switched) => {
-        const arr = !switched ? initialArray.filter((item) => {
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        localStorage.setItem(e.target.name, e.target.value);
+    }
+
+    const handleFilter = (initialArray) => {
+        const arr = !checked ? initialArray.filter((item) => {
             return item.nameRU.toLowerCase().includes(value.toLowerCase())
         }) : initialArray.filter((item) => {
-            return item.nameRU.toLowerCase().includes(value.toLowerCase()) && (item.duration < 40)
-        })
-        setFilteredArray(arr);
+            return item.nameRU.toLowerCase().includes(value.toLowerCase()) && (item.duration <= 40)
+        });
+        localStorage.setItem("movies", JSON.stringify(arr.slice(0)));
         return new Promise((resolve, reject) => {
-            resolve(arr);
+            resolve(arr.slice(0));
         });
     }
 
-  
-
-
-    return { filteredArray, handleFilter, handleChange, value, message, setMessage }
+    return { handleFilter, handleChange, value, setValue, message, setMessage, checked, setChecked, handleCheck }
 }

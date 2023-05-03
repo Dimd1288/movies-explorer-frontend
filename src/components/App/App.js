@@ -27,6 +27,11 @@ function App() {
   const [popupMessage, setPopupMessage] = useState('');
   const [moviesCards, setMoviesCards] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const {sizeMode, handleSize} = useWindowSize();
+
+  useEffect(() => {
+    handleSize()
+  }, [window.innerWidth])
 
   function handleMoviesCardsLoading() {
     return getMovies()
@@ -36,6 +41,7 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+        handlePopupVisibility(false);
       });
   }
 
@@ -70,6 +76,7 @@ function App() {
             movies={moviesCards}
             onSetMovies={setMoviesCards}
             loaded={loaded}
+            size={sizeMode}
           />
           } />
           <Route path="/saved-movies" element={<SavedMovies />} />

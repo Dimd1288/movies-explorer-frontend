@@ -21,7 +21,13 @@ export const MIDDLE = {
 }
 
 export const MOBILE = {
-    'max': 7,
-    'row': 5,
+    'max': 5,
+    'row': 1,
     'add': 2
 }
+
+export const NAME_RU = "nameRU"
+
+export const NAME = "name"
+
+export const BEST_MOVIE_URL = "https://api.nomoreparties.co"
