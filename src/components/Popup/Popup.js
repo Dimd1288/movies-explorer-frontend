@@ -7,9 +7,9 @@ function Popup(props) {
     }
 
     return (
-        <dialog className="popup">
+        <dialog className={`popup ${props.visible ? 'popup_visible' : ''}`}>
             <button className="popup__close" onClick={handleClose}></button>
-            <p className={`popup__message ${!props.message.status ? 'popup__message_error' : ''}`}>{props.message.message}</p>
+            <p className='popup__message'>{props.message}</p>
         </dialog>
     )
 }

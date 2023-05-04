@@ -1,9 +1,27 @@
 import './Login.css';
 import Form from '../Form/Form';
+import { useNavigate } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
 
 function Login(props) {
     const { values, handleChange, errors, isValid } = useValidation();
+    const navigate = useNavigate();
+
+    function handleSubmit(e) {
+        const {email, password} = values;
+        e.preventDefault();
+        props.onAuthorize(email, password).then((data) => {
+            if (data.jwt){
+              localStorage.setItem('jwt', data.jwt);
+              props.onLogin(true); 
+              navigate('/movies', {replace: true});
+            } else {
+                props.onPopupVisibility();
+                props.handleMessage("sdsdf")
+            }
+          })
+          .catch(err => console.log(err));;
+    }
 
     return (
         <main>
@@ -14,6 +32,7 @@ function Login(props) {
                 linkText="Регистрация"
                 link='/signup'
                 isValid = {isValid}
+                handleSubmit={handleSubmit}
                 >
                 <label className='login__label'>E-mail</label>
                 <input onChange={handleChange} type='email' name='email' className={`login__input ${errors.email ? 'login__input_error' : ''}`} value={values.email || ''} required />

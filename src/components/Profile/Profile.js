@@ -1,27 +1,29 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile(props) {
     const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useValidation();
     const [failed, setFailed] = useState(false);
+    const currentUser = useContext(CurrentUserContext);
 
     useEffect(() => {
         resetForm();
         setFailed(false);
-        setValues({name:'Дмитрий', email: 'pochta@fddf.ee'})
+        setValues({ name:currentUser.name, email: currentUser.email })
     }, [props.edit])
 
     function handleSubmit(e) {
         e.preventDefault();
         setIsValid(false);
-        setFailed(true);
+        // setFailed(true);
     }
 
     return (
         <main className='profile'>
-            <h1 className='profile__title'>Привет, Дмитрий!</h1>
+            <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
             <form onSubmit={handleSubmit} className='profile__form' noValidate>
                 <fieldset className='profile__fieldset'>
                     <label className='profile__input__label'>Имя</label>
@@ -39,7 +41,7 @@ function Profile(props) {
                 <nav className={`profile__edit-wrapper ${props.edit ? 'profile__edit-wrapper_hidden' : ''}`}>
                     <ul className='profile__menu'>
                         <li onClick={props.onEdit} className='profile__edit'>Редактировать</li>
-                        <li><Link className='profile__link' to='/'>Выйти из аккаунта</Link></li>
+                        <li><Link onClick={props.onLogOut} className='profile__link' to='/'>Выйти из аккаунта</Link></li>
                     </ul>
                 </nav>
                 {failed && <span className='profile__form-error'>При обновлении профиля произошла ошибка</span>}
