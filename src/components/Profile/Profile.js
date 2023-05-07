@@ -11,14 +11,24 @@ function Profile(props) {
 
     useEffect(() => {
         resetForm();
-        setFailed(false);
-        setValues({ name:currentUser.name, email: currentUser.email })
-    }, [props.edit])
+        setValues({ name:currentUser.name, email: currentUser.email });
+    }, [currentUser])
 
     function handleSubmit(e) {
+        const { name, email } = values;
         e.preventDefault();
-        setIsValid(false);
-        // setFailed(true);
+        
+        props.onUpdate(name, email)
+            .then(res => {
+                if (res) {
+                    props.onEdit()
+                } else {
+                    setFailed(true);
+                    setIsValid(false);
+                }
+                
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -27,14 +37,14 @@ function Profile(props) {
             <form onSubmit={handleSubmit} className='profile__form' noValidate>
                 <fieldset className='profile__fieldset'>
                     <label className='profile__input__label'>Имя</label>
-                    <input onChange={handleChange} type="text" name="name" className='profile__input' value={values.name || ''} placeholder='Имя' disabled={!props.edit} minLength="2"
+                    <input onChange={handleChange} type="text" name='name' className='profile__input' value={values.name || ''} placeholder='Имя' disabled={!props.edit} minLength="2"
                     maxLength="30" required/>
                     <span className='profile__error'>{errors.name}</span>
                 </fieldset>
                 <hr className='profile__line'></hr>
                 <fieldset className='profile__fieldset'>
                     <label className='profile__input__label'>E-mail</label>
-                    <input onChange={handleChange} type="email" name="email" className='profile__input' value={values.email || ''} placeholder='E-mail' disabled={!props.edit} minLength="2"
+                    <input onChange={handleChange} type="email" name='email' className='profile__input' value={values.email || ''} placeholder='E-mail' disabled={!props.edit} minLength="2"
                     maxLength="30" required/>
                     <span className='profile__error'>{errors.email}</span>
                 </fieldset>

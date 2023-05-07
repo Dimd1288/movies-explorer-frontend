@@ -1,4 +1,5 @@
 import './App.css';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -15,7 +16,7 @@ import Popup from '../Popup/Popup';
 import { getMovies } from '../../utils/MoviesApi';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { getUser, register, authorize } from '../../utils/MainApi';
+import { getUser, register, authorize, updateUser } from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -42,14 +43,21 @@ function App() {
         setCurrentUser(res);
       })
       .catch((err) => console.log(err));
-      checkToken();
+    checkToken();
   }, [loggedIn])
 
   function checkToken() {
-    if (localStorage.getItem('jwt')){
-        setLoggedIn(true);
-        navigate('/movies');
+    if (localStorage.getItem('jwt')) {
+      setLoggedIn(true);
+      navigate(location.pathname, { replace: true });
     }
+  }
+
+  function handleUserUpdate(name, email) {
+    return updateUser(name, email).then(res => {
+      setCurrentUser(res);
+      return res;
+    });
   }
 
   function handleMoviesCardsLoading() {
@@ -65,7 +73,7 @@ function App() {
   }
 
   function handleProfileEditMode() {
-    setEditMode(true);
+    setEditMode(!editMode);
   }
 
   function handleRegisterUser(name, email, password) {
@@ -74,7 +82,7 @@ function App() {
 
   function handleAuthorizeUser(email, password) {
     return authorize(email, password);
-}
+  }
 
   function handlePopupVisibility() {
     setPopupVisibility(true);
@@ -84,7 +92,7 @@ function App() {
   }
 
   function handlePopupMessage(message) {
-      setPopupMessage(message);
+    setPopupMessage(message);
   }
 
   function escapeProfileEditMode() {
@@ -105,21 +113,35 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <div className="app-page">
-          {headerVisible && <Header loggedIn={loggedIn} onPieClick={handleSidebarOpen} escape={escapeProfileEditMode}/>}
+          {headerVisible && <Header loggedIn={loggedIn} onPieClick={handleSidebarOpen} escape={escapeProfileEditMode} />}
           <Routes>
-            <Route path="/signup" element={<Register onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage}  onRegister={handleRegisterUser} />} />
-            <Route path="/signin" element={<Login onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage}  onAuthorize={handleAuthorizeUser} onLogin={setLoggedIn}/>} />
-            <Route path="/movies" element={<Movies
-              onLoading={handleMoviesCardsLoading}
-              onLoaded={setLoaded}
-              movies={moviesCards}
-              onSetMovies={setMoviesCards}
-              loaded={loaded}
-              size={sizeMode}
-            />
+            <Route path="/signup" element={<Register onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onRegister={handleRegisterUser} />} />
+            <Route path="/signin" element={<Login onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onAuthorize={handleAuthorizeUser} onLogin={setLoggedIn} />} />
+            <Route path="/movies" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies
+                  onLoading={handleMoviesCardsLoading}
+                  onLoaded={setLoaded}
+                  movies={moviesCards}
+                  onSetMovies={setMoviesCards}
+                  loaded={loaded}
+                  size={sizeMode}
+                />
+              </ProtectedRoute>
             } />
-            <Route path="/saved-movies" element={<SavedMovies />} />
-            <Route path="/profile" element={<Profile onEdit={handleProfileEditMode} edit={editMode} onLogOut={handleLogOut} />} />
+            <Route path="/saved-movies" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedMovies />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Profile
+                  onUpdate={handleUserUpdate}
+                  onEdit={handleProfileEditMode}
+                  edit={editMode}
+                  onLogOut={handleLogOut}
+                /></ProtectedRoute>} />
             <Route path="/" element={<Main />} />
             <Route path="/404" element={<NotFound />} />
           </Routes>

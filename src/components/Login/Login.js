@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
 
 function Login(props) {
-    const { values, handleChange, errors, isValid } = useValidation();
+    const { values, handleChange, errors, isValid, setIsValid } = useValidation();
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -17,7 +17,8 @@ function Login(props) {
               navigate('/movies', {replace: true});
             } else {
                 props.onPopupVisibility();
-                props.handleMessage("sdsdf")
+                props.handleMessage("Неправильные логин или пароль")
+                setIsValid(false);
             }
           })
           .catch(err => console.log(err));;
