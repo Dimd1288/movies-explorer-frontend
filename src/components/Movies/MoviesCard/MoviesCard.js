@@ -5,6 +5,7 @@ import { BEST_MOVIE_URL } from '../../../utils/constants';
 
 function MoviesCard(props) {
     const [saved, setSaved] = useState(false);
+    const isSaved = props.savedMovies.some(i => i.movieId === props.movie.id)
     const duration = convertTime(props.movie.duration)
 
     function handleSave() {
@@ -21,7 +22,7 @@ function MoviesCard(props) {
            nameRU: props.movie.nameRU,
            nameEN: props.movie.nameEN 
         })
-        setSaved(!saved)
+        // setSaved(!saved)
     }
 
     return (
@@ -29,7 +30,7 @@ function MoviesCard(props) {
             <div className='movie-card__wrapper'>
                 <h2 className="movie-card__title">{props.movie.nameRU}</h2>
                 <p className='movie-card__title-hint'>{props.movie.nameRU}</p>
-                <button onClick={handleSave} className={`movie-card__save ${saved ? 'movie-card__save_active' : ''}`}></button>
+                <button onClick={handleSave} className={`movie-card__save ${isSaved ? 'movie-card__save_active' : ''}`}></button>
                 <p className="movie-card__duration">{duration}</p>
             </div>
             <a className='movie-card__link' href={props.movie.trailerLink} target='_blank'><img src={`${BEST_MOVIE_URL}${props.movie.image.url}`} alt="Карточка фильма" className="movie-card__image" /></a>

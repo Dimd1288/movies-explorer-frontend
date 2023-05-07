@@ -139,6 +139,7 @@ function App() {
                   onLoading={handleMoviesCardsLoading}
                   onLoaded={setLoaded}
                   movies={moviesCards}
+                  savedMovies={savedMovies}
                   onSetMovies={setMoviesCards}
                   loaded={loaded}
                   size={sizeMode}
