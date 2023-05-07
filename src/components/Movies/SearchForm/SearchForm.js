@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './SearchForm.css';
 import Switch from "react-switch";
 
@@ -7,7 +6,7 @@ function SearchForm(props) {
         e.preventDefault();
         if (props.value === null || props.value.match(/^ *$/) !== null) {
             props.onSetMessage("Поле не должно быть пустым");
-            props.onMoreMovies(false);
+            if(props.onMoreMovies) {props.onMoreMovies(false)};
             props.onCheck(false);
             localStorage.removeItem(`${props.name}-checked`);
             props.onLoaded(false);

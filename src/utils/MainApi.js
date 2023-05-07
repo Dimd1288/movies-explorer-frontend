@@ -50,7 +50,7 @@ export const getUser = (token) => {
         }
     })
         .then(res => res.json())
-        .then(data => data)
+        .catch(err => err.json())
 }
 
 export const updateUser = (name, email) => {
@@ -64,4 +64,33 @@ export const updateUser = (name, email) => {
         },
         body: JSON.stringify({ name, email })
     }).then(res => res.json())
+}
+
+export const getSavedMovies = () => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        }
+    })
+        .then(res => res.json())
+        .catch(err => err.json())
+}
+
+export const postSaveMovie = (params) => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(params)
+    })
+    .then(res => res.json())
+    .catch(err => err.json())
 }

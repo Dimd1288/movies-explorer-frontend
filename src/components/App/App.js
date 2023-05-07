@@ -16,7 +16,7 @@ import Popup from '../Popup/Popup';
 import { getMovies } from '../../utils/MoviesApi';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { getUser, register, authorize, updateUser } from '../../utils/MainApi';
+import { getUser, register, authorize, updateUser, getSavedMovies, postSaveMovie } from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,6 +29,7 @@ function App() {
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [moviesCards, setMoviesCards] = useState({});
+  const [savedMovies, setSavedMovies] = useState([{}]);
   const [loaded, setLoaded] = useState(false);
   const { sizeMode, handleSize } = useWindowSize();
   const navigate = useNavigate();
@@ -44,6 +45,14 @@ function App() {
       })
       .catch((err) => console.log(err));
     checkToken();
+  }, [loggedIn])
+
+
+  useEffect(() => {
+    getSavedMovies()
+      .then(res => {
+        setSavedMovies(res);
+      })
   }, [loggedIn])
 
   function checkToken() {
@@ -91,6 +100,11 @@ function App() {
     }, 3000);
   }
 
+
+  function handleSaveMovie(params) {
+    return postSaveMovie(params).then(savedMovie => setSavedMovies([savedMovie, ...savedMovies]));
+  }
+
   function handlePopupMessage(message) {
     setPopupMessage(message);
   }
@@ -105,6 +119,8 @@ function App() {
 
   function handleLogOut() {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('nameRU')
     navigate('/');
     setLoggedIn(false);
   }
@@ -126,12 +142,16 @@ function App() {
                   onSetMovies={setMoviesCards}
                   loaded={loaded}
                   size={sizeMode}
+                  onSave={handleSaveMovie}
                 />
               </ProtectedRoute>
             } />
             <Route path="/saved-movies" element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedMovies />
+                <SavedMovies
+                onLoading={handleMoviesCardsLoading}
+                onLoaded={setLoaded} 
+                movies={savedMovies} />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={

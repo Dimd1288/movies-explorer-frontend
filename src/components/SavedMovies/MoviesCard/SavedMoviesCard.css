@@ -1,4 +1,4 @@
-.movie-card {
+.saved-movie-card {
     display: flex;
     flex-wrap: wrap;
     max-width: 364px;
@@ -8,12 +8,12 @@
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
 }
 
-.movie-card__image {
+.saved-movie-card__image {
     width: 100%;
     object-fit: cover;
 }
 
-.movie-card__wrapper {
+.saved-movie-card__wrapper {
     position: relative;
     width: 100%;
     max-height: 68px;
@@ -23,7 +23,7 @@
     gap: 9px;
 }
 
-.movie-card__delete {
+.saved-movie-card__delete {
     background: #F9F9F9 url('../../../images/delete-icon.svg') no-repeat 50% 50%;
     width: 30px;
     height: 30px;
@@ -36,27 +36,56 @@
     padding: 0;
 }
 
-.movie-card__delete:hover {
+.saved-movie-card__delete:hover {
     background: #000000 url('../../../images/delete-icon-hover.svg') no-repeat 50% 50%;
 }
 
-.movie-card__title {
+.saved-movie-card__title {
     margin: 14px 0 0 14px;
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 250px;
 }
 
-.movie-card__duration {
+.saved-movie-card__duration {
     margin: 0 0 14px 14px;
     font-size: 11px;
     line-height: 13px;
     color: #A0A0A0;
 }
 
+.saved-movie-card__title-hint {
+    position: absolute;
+    display: none;
+    top: -25px;
+    left: 60px;
+    font-size: 12px;
+    line-height: 14px;
+    min-height: 16px;
+    width: 250px;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.saved-movie-card__title:hover~.saved-movie-card__title-hint {
+    display: block;
+}
+
 @media screen and (max-width: 760px) {
-    .movie-card {
+    .saved-movie-card {
         min-width: 300px;
     }
+}
 
+@media screen and (max-width: 400px) {
+    .saved-movie-card__title-hint {
+        left: 10px;
+    }
 }

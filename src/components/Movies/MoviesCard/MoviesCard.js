@@ -8,6 +8,19 @@ function MoviesCard(props) {
     const duration = convertTime(props.movie.duration)
 
     function handleSave() {
+        props.onSave({
+           country: props.movie.country,
+           director: props.movie.director,
+           duration: props.movie.duration,
+           year: props.movie.year,
+           description: props.movie.description,
+           image: `${BEST_MOVIE_URL}${props.movie.image.url}`,
+           trailerLink: props.movie.trailerLink,
+           thumbnail: `${BEST_MOVIE_URL}${props.movie.image.formats.thumbnail.url}`,
+           movieId: props.movie.id,
+           nameRU: props.movie.nameRU,
+           nameEN: props.movie.nameEN 
+        })
         setSaved(!saved)
     }
 

@@ -20,7 +20,7 @@ export function useFilter() {
         }) : initialArray.filter((item) => {
             return item.nameRU.toLowerCase().includes(value.toLowerCase()) && (item.duration <= 40)
         });
-        localStorage.setItem("movies", JSON.stringify(arr.slice(0)));
+        localStorage.setItem("movies", JSON.stringify(arr));
         return new Promise((resolve, reject) => {
             resolve(arr.slice(0));
         });

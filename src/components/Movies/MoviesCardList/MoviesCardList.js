@@ -1,6 +1,5 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import cardImage from '../../../images/cards/1.jpg'
 
 function MoviesCardList(props) {
 
@@ -8,7 +7,7 @@ function MoviesCardList(props) {
         <section className='movies-list'>
             <ul className='movies-list__items'>
                 {props.movies.map((message) =>
-                (<MoviesCard cardImage={cardImage} movie={message} key={message.id} />
+                (<MoviesCard onSave={props.onSave} movie={message} key={message.id} />
                 ))}
             </ul>
         </section>

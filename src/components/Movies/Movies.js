@@ -67,8 +67,8 @@ function Movies(props) {
                 onSetMovies={props.onSetMovies}
                 onStartLoader={handleSwitchPreloader} />
             {loading && <Preloader />}
-            {!loading && <span className='movies__message'>{message}</span>}
-            {props.loaded && <MoviesCardList movies={localMovies.slice(0, rows)} />}
+            {!loading && <span className='movies__message'>{ message }</span>}
+            {props.loaded && <MoviesCardList movies={localMovies.slice(0, rows)} onSave={props.onSave} />}
             {(moreMovies && !loading) && <button onClick={handleMoreButtonClick} className='movies__more'>Ещё</button>}
         </main>
     )
