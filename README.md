@@ -1,3 +1,3 @@
 # movies-explorer-frontend
 
-[https://disk.yandex.ru/d/D5OfvrJv1HcJNw](https://disk.yandex.ru/d/D5OfvrJv1HcJNw)
+[https://github.com/Dimd1288/movies-explorer-frontend/pull/2](https://github.com/Dimd1288/movies-explorer-frontend/pull/2)
