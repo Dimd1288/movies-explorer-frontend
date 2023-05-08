@@ -11,6 +11,7 @@
 .saved-movie-card__image {
     width: 100%;
     object-fit: cover;
+    height: 190px;
 }
 
 .saved-movie-card__wrapper {
@@ -76,6 +77,13 @@
 
 .saved-movie-card__title:hover~.saved-movie-card__title-hint {
     display: block;
+}
+
+.saved-movie-card__link {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 760px) {

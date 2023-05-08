@@ -33,7 +33,7 @@ function Movies(props) {
         if (localMovies.length !== 0) {
             props.onLoaded(true);
             setMessage("")
-        }
+        } else setMessage("Поиск фильмов")
     }
 
     function handleMoreButtonCheck() {
@@ -52,6 +52,7 @@ function Movies(props) {
     return (
         <main className='movies'>
             <SearchForm
+                page='movies'
                 onLoading={props.onLoading}
                 onFilter={handleFilter}
                 name={NAME_RU}
@@ -68,7 +69,7 @@ function Movies(props) {
                 onStartLoader={handleSwitchPreloader} />
             {loading && <Preloader />}
             {!loading && <span className='movies__message'>{ message }</span>}
-            {props.loaded && <MoviesCardList movies={localMovies.slice(0, rows)} onSave={props.onSave} savedMovies={props.savedMovies}/>}
+            {props.loaded && <MoviesCardList movies={localMovies.slice(0, rows)} onSave={props.onSave} onDelete={props.onDelete} savedMovies={props.savedMovies}/>}
             {(moreMovies && !loading) && <button onClick={handleMoreButtonClick} className='movies__more'>Ещё</button>}
         </main>
     )

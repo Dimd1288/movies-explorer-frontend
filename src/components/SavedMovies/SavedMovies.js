@@ -8,23 +8,39 @@ import { NAME } from '../../utils/constants';
 
 function SavedMovies(props) {
     const [loading, setLoader] = useState(false);
-    const [loaded, setLoaded] = useState(true);
     const { handleFilter, handleChange, value, setValue, message, setMessage, checked, setChecked, handleCheck } = useFilter();
+    const localMovies = JSON.parse(localStorage.getItem('saved-movies')) || [];
 
     useEffect(() => {
-        if (props.movies.length === 0) {
-            setMessage("У вас нет сохраненных фильмов")
-        }
-    })
-    
-    function handlePreloader() {
-        setLoaded(false);
-        setTimeout(() => setLoaded(true), 2000);
+        setChecked(JSON.parse(localStorage.getItem(`${NAME}-checked`)) || false);
+        setValue(localStorage.getItem(NAME))
+        checkMoviesLoaded();
+    }, [])
+
+    function handleSwitchPreloader(isLoading) {
+        setLoader(isLoading);
+    }
+
+    function checkMoviesLoaded() {
+        props.onLoaded(false);
+        props.onLoading().then((res) => {
+            if (res.length === 0) {
+                props.onSetMovies([]);
+                setMessage("У вас нет сохраненных фильмов");
+            } else {
+                if (localMovies.length !== 0) {
+                    props.onSetMovies(localMovies)
+                }
+                setMessage("");
+                props.onLoaded(true)
+            }
+        })
     }
 
     return (
         <main className='saved-movies'>
             <SearchForm
+                page='saved-movies'
                 value={value}
                 name={NAME}
                 checked={checked}
@@ -33,9 +49,13 @@ function SavedMovies(props) {
                 onInputChange={handleChange}
                 onSetMessage={setMessage}
                 onLoaded={props.onLoaded}
+                onStartLoader={handleSwitchPreloader}
+                onLoading={props.onLoading}
+                onFilter={handleFilter}
+                onSetMovies={props.onSetMovies}
             />
-            {props.movies.length!==0 && loaded && <SavedMoviesCardList movies={props.movies} />}
-            {loading && <Preloader/>}
+            {props.loaded && <SavedMoviesCardList movies={props.movies} onDelete={props.onDelete}/>}
+            {loading && <Preloader />}
             {props.movies.length === 0 && !loading && <span className='movies__message'>{message}</span>}
         </main>
     )

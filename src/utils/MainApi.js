@@ -50,7 +50,7 @@ export const getUser = (token) => {
         }
     })
         .then(res => res.json())
-        .catch(err => err.json())
+        .catch(err => console.log(err))
 }
 
 export const updateUser = (name, email) => {
@@ -63,7 +63,9 @@ export const updateUser = (name, email) => {
             authorization: `Bearer ${localStorage.getItem('jwt')}`,
         },
         body: JSON.stringify({ name, email })
-    }).then(res => res.json())
+    })
+        .then(res => res.json())
+        .catch(err => console.log(err))
 }
 
 export const getSavedMovies = () => {
@@ -77,7 +79,7 @@ export const getSavedMovies = () => {
         }
     })
         .then(res => res.json())
-        .catch(err => err.json())
+        .catch(err => console.log(err))
 }
 
 export const postSaveMovie = (params) => {
@@ -91,6 +93,20 @@ export const postSaveMovie = (params) => {
         },
         body: JSON.stringify(params)
     })
-    .then(res => res.json())
-    .catch(err => err.json())
+        .then(res => res.json())
+        .catch(err => console.log(err))
+}
+
+export const deleteMovie = (movieId) => {
+    return fetch(`${BASE_URL}/movies/${movieId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        }
+    })
+        .then(res => res.json())
+        .catch(err => console.log(err))
 }

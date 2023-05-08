@@ -2,11 +2,12 @@ import './SearchForm.css';
 import Switch from "react-switch";
 
 function SearchForm(props) {
-    function handleSearch(e) {
+
+    function handleAllMoviesSearch(e) {
         e.preventDefault();
         if (props.value === null || props.value.match(/^ *$/) !== null) {
             props.onSetMessage("Поле не должно быть пустым");
-            if(props.onMoreMovies) {props.onMoreMovies(false)};
+            props.onMoreMovies(false);
             props.onCheck(false);
             localStorage.removeItem(`${props.name}-checked`);
             props.onLoaded(false);
@@ -18,7 +19,7 @@ function SearchForm(props) {
                 localStorage.setItem(`${props.name}-checked`, props.checked);
                 props.onLoaded(true);
                 props.onStartLoader(false);
-                props.onFilter(res).then(res => {
+                props.onFilter(res, props.page).then(res => {
                     if (res.length !== 0) {
                         props.onSetMessage("")
                     } else {
@@ -29,9 +30,33 @@ function SearchForm(props) {
         }
     }
 
+    function handleSavedMoviesSearch(e) {
+        e.preventDefault();
+        props.onStartLoader(true);
+        props.onLoaded(false);
+        props.onLoading().then((res) => {
+            localStorage.setItem(`${props.name}-checked`, props.checked);
+            if (res.length === 0) {
+                props.onSetMessage("У вас нет сохраненных фильмов")
+            } else {
+                props.onFilter(res, props.page).then(res => {
+                    if (res.length === 0) {
+                        props.onSetMessage("По вашему запросу ничего не найдено")
+                    }
+                    props.onSetMovies(res)
+                })
+            }
+            setTimeout(() => {
+                props.onLoaded(true);
+                props.onStartLoader(false);
+            }, 1000)
+
+        })
+    }
+
     return (
         <section className='search-form'>
-            <form className='search-form__wrapper' onSubmit={handleSearch} noValidate>
+            <form className='search-form__wrapper' onSubmit={props.page === 'movies' ? handleAllMoviesSearch : handleSavedMoviesSearch} noValidate>
                 <input name={props.name} onChange={props.onInputChange} value={props.value || ''} type="search" className='search-form__input' placeholder="Фильм" required />
                 <button className='search-form__button' type='submit'>Найти</button>
             </form>

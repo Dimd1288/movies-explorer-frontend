@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export function useFilter() {
     const [value, setValue] = useState('');
-    const [message, setMessage] = useState("Поиск фильмов по названию");
+    const [message, setMessage] = useState("");
     const [checked, setChecked] = useState(false);
 
     function handleCheck() {
@@ -14,15 +14,15 @@ export function useFilter() {
         localStorage.setItem(e.target.name, e.target.value);
     }
 
-    const handleFilter = (initialArray) => {
+    const handleFilter = (initialArray, page) => {
         const arr = !checked ? initialArray.filter((item) => {
             return item.nameRU.toLowerCase().includes(value.toLowerCase())
         }) : initialArray.filter((item) => {
             return item.nameRU.toLowerCase().includes(value.toLowerCase()) && (item.duration <= 40)
         });
-        localStorage.setItem("movies", JSON.stringify(arr));
+        localStorage.setItem(page, JSON.stringify(arr));
         return new Promise((resolve, reject) => {
-            resolve(arr.slice(0));
+            resolve(arr);
         });
     }
 

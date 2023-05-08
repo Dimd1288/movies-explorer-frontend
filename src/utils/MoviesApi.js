@@ -3,4 +3,5 @@ export const getMovies = () => {
     .then((res) => {
         return res.json();
     })
+    .catch(err => console.log(err))
 }

@@ -1,28 +1,31 @@
-import { useState } from 'react';
 import './MoviesCard.css';
 import { convertTime } from '../../../utils/utils';
 import { BEST_MOVIE_URL } from '../../../utils/constants';
 
 function MoviesCard(props) {
-    const [saved, setSaved] = useState(false);
-    const isSaved = props.savedMovies.some(i => i.movieId === props.movie.id)
-    const duration = convertTime(props.movie.duration)
+    const isSaved = props.savedMovies.some(i => i.nameRU === props.movie.nameRU);
+    const currentMovie = props.savedMovies.filter((item) => {return item.nameRU === props.movie.nameRU});
+    const duration = convertTime(props.movie.duration);
+    const movieId = Math.floor(Math.random() * 100000)
 
     function handleSave() {
-        props.onSave({
-           country: props.movie.country,
-           director: props.movie.director,
-           duration: props.movie.duration,
-           year: props.movie.year,
-           description: props.movie.description,
-           image: `${BEST_MOVIE_URL}${props.movie.image.url}`,
-           trailerLink: props.movie.trailerLink,
-           thumbnail: `${BEST_MOVIE_URL}${props.movie.image.formats.thumbnail.url}`,
-           movieId: props.movie.id,
-           nameRU: props.movie.nameRU,
-           nameEN: props.movie.nameEN 
-        })
-        // setSaved(!saved)
+        if (!isSaved) {
+            props.onSave({
+                country: props.movie.country,
+                director: props.movie.director,
+                duration: props.movie.duration,
+                year: props.movie.year,
+                description: props.movie.description,
+                image: `${BEST_MOVIE_URL}${props.movie.image.url}`,
+                trailerLink: props.movie.trailerLink,
+                thumbnail: `${BEST_MOVIE_URL}${props.movie.image.formats.thumbnail.url}`,
+                movieId: movieId,
+                nameRU: props.movie.nameRU,
+                nameEN: props.movie.nameEN 
+             })
+        } else {
+            props.onDelete(currentMovie[0]._id)
+        }
     }
 
     return (
@@ -33,7 +36,7 @@ function MoviesCard(props) {
                 <button onClick={handleSave} className={`movie-card__save ${isSaved ? 'movie-card__save_active' : ''}`}></button>
                 <p className="movie-card__duration">{duration}</p>
             </div>
-            <a className='movie-card__link' href={props.movie.trailerLink} target='_blank'><img src={`${BEST_MOVIE_URL}${props.movie.image.url}`} alt="Карточка фильма" className="movie-card__image" /></a>
+            <a className='movie-card__link' href={props.movie.trailerLink} target='_blank' rel="noreferrer"><img src={`${BEST_MOVIE_URL}${props.movie.image.url}`} alt="Карточка фильма" className="movie-card__image" /></a>
         </li>
     )
 }

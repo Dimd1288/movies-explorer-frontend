@@ -16,7 +16,7 @@ import Popup from '../Popup/Popup';
 import { getMovies } from '../../utils/MoviesApi';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { getUser, register, authorize, updateUser, getSavedMovies, postSaveMovie } from '../../utils/MainApi';
+import { getUser, register, authorize, updateUser, getSavedMovies, postSaveMovie, deleteMovie } from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -69,6 +69,17 @@ function App() {
     });
   }
 
+  function handleSavedMoviesLoading() {
+    return getSavedMovies()
+      .then(res => {
+        setSavedMovies(res);
+        return res;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   function handleMoviesCardsLoading() {
     return getMovies()
       .then((res) => {
@@ -100,9 +111,24 @@ function App() {
     }, 3000);
   }
 
-
   function handleSaveMovie(params) {
-    return postSaveMovie(params).then(savedMovie => setSavedMovies([savedMovie, ...savedMovies]));
+    return postSaveMovie(params).then(savedMovie => {
+      setSavedMovies([savedMovie, ...savedMovies]);
+      clearLocalSavedMovies();
+    });
+  }
+
+  function handleDeleteMovie(movieId) {
+    return deleteMovie(movieId).then((res) => {
+      setSavedMovies((state) => state.filter((movie) => movie._id !== res._id));
+      clearLocalSavedMovies();
+    });
+  }
+
+  function clearLocalSavedMovies() {
+    localStorage.removeItem("saved-movies");
+    localStorage.setItem("name", "");
+    localStorage.removeItem("name-checked");
   }
 
   function handlePopupMessage(message) {
@@ -144,15 +170,20 @@ function App() {
                   loaded={loaded}
                   size={sizeMode}
                   onSave={handleSaveMovie}
+                  onDelete={handleDeleteMovie}
                 />
               </ProtectedRoute>
             } />
             <Route path="/saved-movies" element={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
-                onLoading={handleMoviesCardsLoading}
+                onLoading={handleSavedMoviesLoading}
                 onLoaded={setLoaded} 
-                movies={savedMovies} />
+                loaded={loaded}
+                movies={savedMovies} 
+                onDelete={handleDeleteMovie}
+                onSetMovies={setSavedMovies}
+                />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
@@ -164,7 +195,7 @@ function App() {
                   onLogOut={handleLogOut}
                 /></ProtectedRoute>} />
             <Route path="/" element={<Main />} />
-            <Route path="/404" element={<NotFound />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
           {footerVisible && <Footer />}
           <Sidebar onEditClose={escapeProfileEditMode} opened={sidebarOpened} onClose={handleSidebarOpen} />
