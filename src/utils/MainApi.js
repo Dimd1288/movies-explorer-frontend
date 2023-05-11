@@ -64,8 +64,8 @@ export const updateUser = (name, email) => {
         },
         body: JSON.stringify({ name, email })
     })
-        .then(res => res.json())
-        .catch(err => console.log(err))
+        .then(res => res)
+        .catch(err => err)
 }
 
 export const getSavedMovies = () => {

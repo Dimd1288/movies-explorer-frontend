@@ -4,6 +4,7 @@ import { EMAIL_ERROR, NAME_ERROR } from "../utils/constants";
 export function useValidation() {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
+    const [failed, setFailed] = useState(false)
     const [isValid, setIsValid] = useState(false);
     const isEmail = (email) =>
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
@@ -13,6 +14,7 @@ export function useValidation() {
         const target = event.target;
         const name = target.name;
         const value = target.value;
+        setFailed(false);
         handleErrors(event);
         setValues({ ...values, [name]: value });
     };
@@ -52,5 +54,5 @@ export function useValidation() {
         [setValues, setErrors, setIsValid]
     );
 
-    return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid };
+    return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, failed, setFailed };
 }

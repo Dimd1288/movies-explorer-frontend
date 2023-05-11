@@ -63,10 +63,7 @@ function App() {
   }
 
   function handleUserUpdate(name, email) {
-    return updateUser(name, email).then(res => {
-      setCurrentUser(res);
-      return res;
-    });
+    return updateUser(name, email)
   }
 
   function handleSavedMoviesLoading() {
@@ -144,9 +141,7 @@ function App() {
   }
 
   function handleLogOut() {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('movies');
-    localStorage.removeItem('nameRU')
+    localStorage.clear();
     navigate('/');
     setLoggedIn(false);
   }
@@ -157,7 +152,7 @@ function App() {
         <div className="app-page">
           {headerVisible && <Header loggedIn={loggedIn} onPieClick={handleSidebarOpen} escape={escapeProfileEditMode} />}
           <Routes>
-            <Route path="/signup" element={<Register onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onRegister={handleRegisterUser} />} />
+            <Route path="/signup" element={<Register onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onLogin={setLoggedIn} onRegister={handleRegisterUser} onAuthorize={handleAuthorizeUser} />} />
             <Route path="/signin" element={<Login onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onAuthorize={handleAuthorizeUser} onLogin={setLoggedIn} />} />
             <Route path="/movies" element={
               <ProtectedRoute loggedIn={loggedIn}>
@@ -177,12 +172,12 @@ function App() {
             <Route path="/saved-movies" element={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
-                onLoading={handleSavedMoviesLoading}
-                onLoaded={setLoaded} 
-                loaded={loaded}
-                movies={savedMovies} 
-                onDelete={handleDeleteMovie}
-                onSetMovies={setSavedMovies}
+                  onLoading={handleSavedMoviesLoading}
+                  onLoaded={setLoaded}
+                  loaded={loaded}
+                  movies={savedMovies}
+                  onDelete={handleDeleteMovie}
+                  onSetMovies={setSavedMovies}
                 />
               </ProtectedRoute>
             } />
@@ -193,6 +188,9 @@ function App() {
                   onEdit={handleProfileEditMode}
                   edit={editMode}
                   onLogOut={handleLogOut}
+                  onSetUser={setCurrentUser}
+                  onPopupVisibility={handlePopupVisibility} 
+                  handleMessage={handlePopupMessage}
                 /></ProtectedRoute>} />
             <Route path="/" element={<Main />} />
             <Route path="/*" element={<NotFound />} />

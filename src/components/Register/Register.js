@@ -14,9 +14,14 @@ function Register(props) {
             .then((res) => {
                 if (res) {
                     props.handleMessage("Вы успешно зарегистрировались");
-                    resetForm();
-                    navigate('/signin', {replace: true});
+                    
+                    props.onAuthorize(email, password).then((data) => {
+                        localStorage.setItem('jwt', data.jwt);
+                        props.onLogin(true); 
+                        navigate('/movies', {replace: true});
+                    });
                 } else {
+                    resetForm();
                     props.handleMessage("Что-то пошло не так");
                     setIsValid(false);
                 }
