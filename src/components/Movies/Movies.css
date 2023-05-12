@@ -8,6 +8,12 @@
     flex-grow: 1;
 }
 
+.movies__message {
+    display: block;
+    margin: 0 auto;
+    padding-left: 30px;
+}
+
 .movies__more {
     text-align: center;
     width: 320px;

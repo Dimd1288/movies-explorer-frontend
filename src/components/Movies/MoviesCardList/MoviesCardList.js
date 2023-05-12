@@ -1,23 +1,14 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import cardImage from '../../../images/cards/1.jpg'
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+
     return (
         <section className='movies-list'>
             <ul className='movies-list__items'>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
-                <li><MoviesCard cardImage={cardImage}/></li>
+                {props.movies.map((message) =>
+                (<MoviesCard onSave={props.onSave} onDelete={props.onDelete} movie={message} key={message.id} onSetSavedMovies={props.onSetSavedMovies} savedMovies={props.savedMovies}/>
+                ))}
             </ul>
         </section>
     )

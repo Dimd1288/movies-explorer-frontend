@@ -55,6 +55,11 @@
     opacity: .7;
 }
 
+.search-form__input::-webkit-search-decoration,
+.search-form__input::-webkit-search-cancel-button,
+.search-form__input::-webkit-search-results-button,
+.search-form__input::-webkit-search-results-decoration { display: none; }
+
 .search-form__filter {
     display: flex;
     justify-content: center;

@@ -9,6 +9,15 @@
     border-radius: 10px;
     padding: 0;
     height: 55px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity .7s;
+}
+
+.popup_visible {
+    visibility: visible;
+    opacity: 1;
+  
 }
 
 .popup__close {
@@ -23,10 +32,6 @@
 }
 
 .popup__message {
-    color: #2BE080;
-    align-self: center;
-}
-
-.popup__message_error {
     color: #FFFFFF;
+    align-self: center;
 }
