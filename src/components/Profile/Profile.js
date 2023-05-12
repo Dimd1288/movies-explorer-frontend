@@ -1,20 +1,22 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../../hooks/useValidation';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile(props) {
-    const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, failed, setFailed } = useValidation();
+    const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, failed, setFailed, checkIsChanged } = useValidation();
     const currentUser = useContext(CurrentUserContext);
     const [message, setMessage] = useState('');
-    const [status ,setStatus] = useState(100);
 
     useEffect(() => {
         resetForm();
-        setValues({ name: currentUser.name, email: currentUser.email });
-    }, [currentUser])
+        setValues(currentUser);
+    }, [currentUser]);
 
+    useEffect(() => {
+        checkIsChanged(currentUser);
+    })
 
     function handleSubmit(e) {
         const { name, email } = values;
@@ -35,6 +37,7 @@ function Profile(props) {
                     setMessage(res.message)
                     setFailed(true);
                     setIsValid(false);
+                    setValues(currentUser);
                 } else {
                     props.onSetUser(res)
                 }
@@ -45,20 +48,25 @@ function Profile(props) {
             .catch(err => console.log(err))
     }
 
+    function handleProfileChange(e) {
+        handleChange(e);
+        
+    }
+
     return (
         <main className='profile'>
             <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
             <form onSubmit={handleSubmit} className='profile__form' noValidate>
                 <fieldset className='profile__fieldset'>
                     <label className='profile__input__label'>Имя</label>
-                    <input onChange={handleChange} type="text" name='name' className='profile__input' value={values.name || ''} placeholder='Имя' disabled={!props.edit} minLength="2"
+                    <input onChange={handleProfileChange} type="text" name='name' className='profile__input' value={values.name || ''} placeholder='Имя' disabled={!props.edit} minLength="2"
                         maxLength="30" required />
                     <span className='profile__error'>{errors.name}</span>
                 </fieldset>
                 <hr className='profile__line'></hr>
                 <fieldset className='profile__fieldset'>
                     <label className='profile__input__label'>E-mail</label>
-                    <input onChange={handleChange} type="email" name='email' className='profile__input' value={values.email || ''} placeholder='E-mail' disabled={!props.edit} minLength="2"
+                    <input onChange={handleProfileChange} type="email" name='email' className='profile__input' value={values.email || ''} placeholder='E-mail' disabled={!props.edit} minLength="2"
                         maxLength="30" required />
                     <span className='profile__error'>{errors.email}</span>
                 </fieldset>

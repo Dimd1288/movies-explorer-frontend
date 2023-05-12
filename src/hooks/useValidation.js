@@ -54,5 +54,12 @@ export function useValidation() {
         [setValues, setErrors, setIsValid]
     );
 
-    return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, failed, setFailed };
+
+    const checkIsChanged = (initialValues) => {
+        if (JSON.stringify(initialValues) === JSON.stringify(values)) {
+            setIsValid(false)
+        }
+    }
+
+    return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, failed, setFailed, checkIsChanged };
 }
