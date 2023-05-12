@@ -29,14 +29,14 @@ function App() {
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [moviesCards, setMoviesCards] = useState({});
-  const [savedMovies, setSavedMovies] = useState([{}]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { sizeMode, handleSize } = useWindowSize();
   const navigate = useNavigate();
 
   useEffect(() => {
     handleSize()
-  }, [window.innerWidth]);
+  }, []);
 
   useEffect(() => {
     getUser(localStorage.getItem('jwt'))
@@ -67,14 +67,7 @@ function App() {
   }
 
   function handleSavedMoviesLoading() {
-    return getSavedMovies()
-      .then(res => {
-        setSavedMovies(res);
-        return res;
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    return getSavedMovies();
   }
 
   function handleMoviesCardsLoading() {
@@ -109,17 +102,15 @@ function App() {
   }
 
   function handleSaveMovie(params) {
-    return postSaveMovie(params).then(savedMovie => {
-      setSavedMovies([savedMovie, ...savedMovies]);
-      clearLocalSavedMovies();
-    });
+    return postSaveMovie(params);
   }
 
   function handleDeleteMovie(movieId) {
-    return deleteMovie(movieId).then((res) => {
-      setSavedMovies((state) => state.filter((movie) => movie._id !== res._id));
-      clearLocalSavedMovies();
-    });
+    return deleteMovie(movieId)
+    // .then((res) => {
+    //   setSavedMovies((state) => state.filter((movie) => movie._id !== res._id));
+    //   clearLocalSavedMovies();
+    // });
   }
 
   function clearLocalSavedMovies() {
@@ -152,8 +143,24 @@ function App() {
         <div className="app-page">
           {headerVisible && <Header loggedIn={loggedIn} onPieClick={handleSidebarOpen} escape={escapeProfileEditMode} />}
           <Routes>
-            <Route path="/signup" element={<Register onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onLogin={setLoggedIn} onRegister={handleRegisterUser} onAuthorize={handleAuthorizeUser} />} />
-            <Route path="/signin" element={<Login onPopupVisibility={handlePopupVisibility} handleMessage={handlePopupMessage} onAuthorize={handleAuthorizeUser} onLogin={setLoggedIn} />} />
+            <Route path="/signup" element={
+              <ProtectedRoute loggedIn={!loggedIn}>
+                <Register
+                  onPopupVisibility={handlePopupVisibility}
+                  handleMessage={handlePopupMessage}
+                  onLogin={setLoggedIn}
+                  onRegister={handleRegisterUser}
+                  onAuthorize={handleAuthorizeUser}
+                />
+              </ProtectedRoute>} />
+            <Route path="/signin" element={
+              <ProtectedRoute loggedIn={!loggedIn}>
+                <Login
+                  onPopupVisibility={handlePopupVisibility}
+                  handleMessage={handlePopupMessage}
+                  onAuthorize={handleAuthorizeUser}
+                  onLogin={setLoggedIn} />
+              </ProtectedRoute>} />
             <Route path="/movies" element={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Movies
@@ -161,6 +168,7 @@ function App() {
                   onLoaded={setLoaded}
                   movies={moviesCards}
                   savedMovies={savedMovies}
+                  onSetSavedMovies={setSavedMovies}
                   onSetMovies={setMoviesCards}
                   loaded={loaded}
                   size={sizeMode}
@@ -189,7 +197,7 @@ function App() {
                   edit={editMode}
                   onLogOut={handleLogOut}
                   onSetUser={setCurrentUser}
-                  onPopupVisibility={handlePopupVisibility} 
+                  onPopupVisibility={handlePopupVisibility}
                   handleMessage={handlePopupMessage}
                 /></ProtectedRoute>} />
             <Route path="/" element={<Main />} />

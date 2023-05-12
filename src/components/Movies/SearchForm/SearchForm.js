@@ -43,7 +43,8 @@ function SearchForm(props) {
                     if (res.length === 0) {
                         props.onSetMessage("По вашему запросу ничего не найдено")
                     }
-                    props.onSetMovies(res)
+                    // props.onSetMovies(res)
+                    console.log(res)
                 })
             }
             setTimeout(() => {

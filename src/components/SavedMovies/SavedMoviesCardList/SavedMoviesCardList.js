@@ -7,7 +7,7 @@ function SavedMoviesCardList(props) {
         <section className='saved-movies-list'>
             <ul className='saved-movies-list__items'>
                 {props.movies.map((message, i) =>
-                (<SavedMoviesCard movie={message} key={i} onDelete={props.onDelete}/>
+                (<SavedMoviesCard movie={message} key={i} onDelete={props.onDelete} onSetMovies={props.onSetMovies}/>
                 ))}
             </ul>
         </section>

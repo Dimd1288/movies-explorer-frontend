@@ -5,8 +5,17 @@ function SavedMoviesCard(props) {
     const duration = convertTime(props.movie.duration)
 
     function handleDelete() {
-        props.onDelete(props.movie._id)
+        props.onDelete(props.movie._id).then(res => {
+            props.onSetMovies((state) => state.filter((movie) => movie._id !== res._id));
+            clearLocalSavedMovies();
+        })
     }
+
+    function clearLocalSavedMovies() {
+        localStorage.removeItem("saved-movies");
+        localStorage.setItem("name", "");
+        localStorage.removeItem("name-checked");
+      }
    
     return (
         <li className="saved-movie-card">

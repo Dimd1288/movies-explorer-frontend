@@ -9,6 +9,7 @@ function MoviesCard(props) {
     const movieId = Math.floor(Math.random() * 100000)
 
     function handleSave() {
+        clearLocalSavedMovies();
         if (!isSaved) {
             props.onSave({
                 country: props.movie.country,
@@ -22,11 +23,21 @@ function MoviesCard(props) {
                 movieId: movieId,
                 nameRU: props.movie.nameRU,
                 nameEN: props.movie.nameEN 
+             }).then(savedMovie => {
+                props.onSetSavedMovies([savedMovie, ...props.savedMovies]);
              })
         } else {
-            props.onDelete(currentMovie[0]._id)
+            props.onDelete(currentMovie[0]._id).then(res => {
+                props.onSetSavedMovies((state) => state.filter((movie) => movie._id !== res._id));
+            })
         }
     }
+    
+    function clearLocalSavedMovies() {
+        localStorage.removeItem("saved-movies");
+        localStorage.setItem("name", "");
+        localStorage.removeItem("name-checked");
+      }
 
     return (
         <li className="movie-card">

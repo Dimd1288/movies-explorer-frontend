@@ -9,7 +9,7 @@ import { NAME } from '../../utils/constants';
 function SavedMovies(props) {
     const [loading, setLoader] = useState(false);
     const { handleFilter, handleChange, value, setValue, message, setMessage, checked, setChecked, handleCheck } = useFilter();
-    const localMovies = JSON.parse(localStorage.getItem('saved-movies')) || [];
+    const localMovies = JSON.parse(localStorage.getItem('saved-movies')) || props.movies;
 
     useEffect(() => {
         setChecked(JSON.parse(localStorage.getItem(`${NAME}-checked`)) || false);
@@ -28,10 +28,8 @@ function SavedMovies(props) {
                 props.onSetMovies([]);
                 setMessage("У вас нет сохраненных фильмов");
             } else {
-                if (localMovies.length !== 0) {
-                    props.onSetMovies(localMovies)
-                }
                 setMessage("");
+                props.onSetMovies(res)
                 props.onLoaded(true)
             }
         })
@@ -54,9 +52,9 @@ function SavedMovies(props) {
                 onFilter={handleFilter}
                 onSetMovies={props.onSetMovies}
             />
-            {props.loaded && <SavedMoviesCardList movies={props.movies} onDelete={props.onDelete}/>}
+            {props.loaded && <SavedMoviesCardList movies={localMovies ? localMovies : props.movies} onDelete={props.onDelete} onSetMovies={props.onSetMovies}/>}
             {loading && <Preloader />}
-            {props.movies.length === 0 && !loading && <span className='movies__message'>{message}</span>}
+            {localMovies.length === 0 && !loading && <span className='movies__message'>{message}</span>}
         </main>
     )
 }
